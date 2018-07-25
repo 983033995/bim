@@ -426,14 +426,20 @@
       // 开关滑块
       handleSwitch () {
         let self = this
-        console.log(self.iotidInfo)
-        // this.switchVal = !this.switchVal
-        // let iotStatus = {
-        //   iotId: this.testIotid
-        // }
-        // this.$axios.post("/api/bim-api/device/properties/set", iotStatus).then(res => {
-        //   console.log(res)
-        // })
+        let iotStatus = self.iotidInfo
+        let setIotInfo
+        console.log(self.switchVal)
+
+        for ( let i in iotStatus) {
+          if (i.indexOf("PowerSwitch") !== -1) {
+            self.switchVal === true ? iotStatus[i] = 0 : iotStatus[i] = 1
+          }
+        }
+        this.$axios.post("/api/bim-api/device/properties/set", iotStatus).then(res => {
+          console.log(res)
+          let data = res.data
+          data.code === 200 ? this.switchVal = !this.switchVal : self.$message.error("开关失败")
+        })
       },
       // 获取设备属性状态
       getProductStatus () {
@@ -443,14 +449,12 @@
           console.log(data)
           if (data.code === 200) {
             let info = data.data
-            console.log(info)
             let propertiesInfo = {}
             propertiesInfo['iotId'] = self.testIotid
             for ( let i in info) {
               propertiesInfo[i] = info[i]["value"]
             }
             self.iotidInfo = propertiesInfo
-            console.log(self.iotidInfo)
           }
         })
       },
@@ -463,7 +467,7 @@
           if (lamp[i] === 0 || lamp[i] === "0") {
             self.switchVal = false
           }else{
-            lself.switchVal = true
+            self.switchVal = true
           }
         }
       },
@@ -514,6 +518,42 @@
                 "INSCOLOR": colorVal
               }
             ]
+          }, {
+            "VIEWID": "3d9ee9c2-0246-462b-8a4a-0a1312cb2170",
+            "VIEWCOLOR": "1.0-1.0-1.0-1.0",
+            "instances": [
+              {
+                "INSID": "514d4078-809a-4e08-afa0-f6e62c4244ed-00081374_514d4078-809a-4e08-afa0-f6e62c4244ed-000810f1_3d9ee9c2-0246-462b-8a4a-0a1312cb2170",
+                "INSCOLOR": colorVal
+              }
+            ]
+          }, {
+            "VIEWID": "3d9ee9c2-0246-462b-8a4a-0a1312cb2170",
+            "VIEWCOLOR": "1.0-1.0-1.0-1.0",
+            "instances": [
+              {
+                "INSID": "514d4078-809a-4e08-afa0-f6e62c4244ed-00081377_514d4078-809a-4e08-afa0-f6e62c4244ed-000810f1_3d9ee9c2-0246-462b-8a4a-0a1312cb2170",
+                "INSCOLOR": colorVal
+              }
+            ]
+          }, {
+            "VIEWID": "3d9ee9c2-0246-462b-8a4a-0a1312cb2170",
+            "VIEWCOLOR": "1.0-1.0-1.0-1.0",
+            "instances": [
+              {
+                "INSID": "514d4078-809a-4e08-afa0-f6e62c4244ed-00081376_514d4078-809a-4e08-afa0-f6e62c4244ed-000810f1_3d9ee9c2-0246-462b-8a4a-0a1312cb2170",
+                "INSCOLOR": colorVal
+              }
+            ]
+          }, {
+            "VIEWID": "3d9ee9c2-0246-462b-8a4a-0a1312cb2170",
+            "VIEWCOLOR": "1.0-1.0-1.0-1.0",
+            "instances": [
+              {
+                "INSID": "514d4078-809a-4e08-afa0-f6e62c4244ed-00081375_514d4078-809a-4e08-afa0-f6e62c4244ed-000810f1_3d9ee9c2-0246-462b-8a4a-0a1312cb2170",
+                "INSCOLOR": colorVal
+              }
+            ]
           }]
         })
       },
@@ -523,8 +563,8 @@
         self._tiViewer.tiCmd({
           "cmd": "selectByElementInfo",
           "data": {
-            "names": ["4ad57404-43b0-44c6-8f69-77b3fe1f54c2-00050886_7df92551-2df1-4152-acb3-190eadda3be1-0004e07c_3d9ee9c2-0246-462b-8a4a-0a1312cb2170"],
-            "op": "replace"
+            "names": ["0c1eacc8-b39f-433e-adce-e95d51fc3705-00050e63_0c1eacc8-b39f-433e-adce-e95d51fc3705-00050e29_3d9ee9c2-0246-462b-8a4a-0a1312cb2170"],
+            "op": "union"
           }
         })
       }
