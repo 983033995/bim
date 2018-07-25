@@ -9,7 +9,7 @@ module.exports = {
 
     // Paths
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: '/travel',
     proxyTable: {
       '/api':{
         target:'http://47.95.44.122',
